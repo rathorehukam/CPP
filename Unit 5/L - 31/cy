@@ -1,0 +1,95 @@
+#include <iostream>
+#include <vector>
+#include <cmath>
+
+using namespace std;
+
+class Polynomial {
+    int degree;
+    int* coeffs;
+
+public:
+    Polynomial(int d) {
+        degree = d;
+        coeffs = new int[d+1];
+    }
+
+    ~Polynomial() {
+        delete[] coeffs;
+    }
+
+    void readCoeffs() {
+        for (int i = 0; i <= degree; i++) {
+            cin >> coeffs[i];
+        }
+    }
+
+    void displayPolynomial() {
+        for (int i = 0; i <= degree; i++) {
+            if (coeffs[i] == 0) continue;
+            if (i != 0) {
+                if (coeffs[i] > 0) cout << " + ";
+                else cout << " - ";
+            }
+            if (abs(coeffs[i]) != 1 || (degree-i) == 0) cout << abs(coeffs[i]);
+            if ((degree-i) > 0) cout << "x";
+            if ((degree-i) > 1) cout << "^" << (degree-i);
+        }
+        cout << endl;
+    }
+
+    int evaluate(int x) {
+        int result = 0;
+        for (int i = 0; i <= degree; i++) {
+            result += coeffs[i] * pow(x, degree-i);
+        }
+        return result;
+    }
+Polynomial operator + (Polynomial& p) {
+    int newDegree = max(degree, p.degree);
+    Polynomial result(newDegree);
+    for (int i = 0; i <= newDegree; i++) {
+        int degree1Coeff = (degree - i >= 0) ? coeffs[degree - i] : 0;
+        int degree2Coeff = (p.degree - i >= 0) ? p.coeffs[p.degree - i] : 0;
+        result.coeffs[newDegree - i] = degree1Coeff + degree2Coeff;
+    }
+    return result;
+}
+
+Polynomial operator - (Polynomial& p) {
+    int newDegree = max(degree, p.degree);
+    Polynomial result(newDegree);
+    for (int i = 0; i <= newDegree; i++) {
+        int degree1Coeff = (degree - i >= 0) ? coeffs[degree - i] : 0;
+        int degree2Coeff = (p.degree - i >= 0) ? p.coeffs[p.degree - i] : 0;
+        result.coeffs[newDegree - i] = degree1Coeff - degree2Coeff;
+    }
+    return result;
+}
+
+  
+};
+
+int main() {
+    int degree1, degree2, x;
+    cin >> degree1;
+    Polynomial poly1(degree1);
+    poly1.readCoeffs();
+    cin >> degree2;
+    Polynomial poly2(degree2);
+    poly2.readCoeffs();
+    cin >> x;
+
+    poly1.displayPolynomial();
+    poly2.displayPolynomial();
+    cout << poly1.evaluate(x) << endl;
+    cout << poly2.evaluate(x) << endl;
+
+    Polynomial sumPoly = poly1 + poly2;
+    sumPoly.displayPolynomial();
+    
+    Polynomial diffPoly = poly1 - poly2;
+    diffPoly.displayPolynomial();
+
+    return 0;
+}
