@@ -39,7 +39,7 @@ int main() {
 
     while (true) {
         if (!(std::cin >> choice)) {  
-            break;  /
+            break;  
         }
         
         switch (choice) {
