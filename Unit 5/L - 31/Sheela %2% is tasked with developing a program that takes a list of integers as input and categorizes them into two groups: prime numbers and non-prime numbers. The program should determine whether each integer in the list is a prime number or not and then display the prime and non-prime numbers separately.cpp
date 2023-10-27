@@ -7,59 +7,78 @@
 
 
 
-#include <iostream>
-#include <cmath>
-bool isPrime(int num) {
-    if (num < 2) return false;
-    if (num == 2) return true;
-    if (num % 2 == 0) return false;
-    for (int i = 3; i <= std::sqrt(num); i+=2) {
-        if (num % i == 0) return false;
-    }
-    return true;
-}
 
-int main() {
-    int N;
-    std::cout << "Enter the number of integers: ";
-    std::cin >> N;
-    
-    int* nums = new int[N];
-    int* primeNums = new int[N];
-    int* nonPrimeNums = new int[N];
-    
-    int primeCount = 0;
-    int nonPrimeCount = 0;
-    
-    std::cout << "Enter the integers: ";
-    for (int i = 0; i < N; ++i) {
-        std::cin >> nums[i];
-        if (isPrime(nums[i])) {
-            primeNums[primeCount++] = nums[i];
-        } else {
-            nonPrimeNums[nonPrimeCount++] = nums[i];
+#include <iostream>
+    #include <vector>
+    using namespace std;
+
+
+    bool checkprime(int a){
+
+        if(a<2){
+            return false;
         }
+        for (int i = 2; i * i <= a; ++i) {
+            if (a % i == 0) {
+                return false;
+                }
+                }
+                return true;
+
     }
-    
-    if (primeCount > 0) {
-        std::cout << "Prime numbers: ";
-        for (int i = 0; i < primeCount; ++i) {
-            std::cout << primeNums[i] << " ";
+
+
+    int main(){
+
+        int wl=-1;
+    if(wl==0){
+        cout<<"new delete";
+    }   
+
+        int n;
+        cin>>n;
+
+        int arr[n];
+
+        for(int i=0;i<n;i++){
+            cin>>arr[i];
         }
-        std::cout << std::endl;
-    } else {
-        std::cout << "No prime numbers found." << std::endl;
+
+        vector<int> prime;
+        vector<int> non_prime;
+
+        for(int i=0;i<n;i++){
+            if (checkprime(arr[i])){
+                prime.push_back(arr[i]);
+            }
+            else{
+                non_prime.push_back(arr[i]);
+            }
+        }
+
+        if(prime.empty()){
+            cout<<"No prime numbers found.";
+        }
+
+        else{
+        cout<<"Prime numbers: ";
+        for(int i:prime){
+            cout<<i<<" ";
+        }
+        }
+
+        cout<<endl;
+
+        if(non_prime.empty()){
+            cout<<"No non-prime numbers found.";
+        }
+
+        else{
+        cout<<"Non-prime numbers: ";
+        for(int i:non_prime){
+            cout<<i<<" ";
+        }
+        }
+
+        return 0;
     }
-    
-    std::cout << "Non-prime numbers: ";
-    for (int i = 0; i < nonPrimeCount; ++i) {
-        std::cout << nonPrimeNums[i] << " ";
-    }
-    std::cout << std::endl;
-    
-    delete[] nums;
-    delete[] primeNums;
-    delete[] nonPrimeNums;
-    
-    return 0;
-}
