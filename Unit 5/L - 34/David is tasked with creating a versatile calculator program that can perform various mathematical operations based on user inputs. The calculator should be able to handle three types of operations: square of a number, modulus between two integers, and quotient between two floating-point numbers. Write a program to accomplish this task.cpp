@@ -5,16 +5,17 @@
 
 
 #include <iostream>
-#include <iomanip> 
+#include <cmath>
+#include <iomanip>
 
 using namespace std;
 
-int calc(int a) {
+int clac(int a) {
     return a * a;
 }
 
-int calc(int a, int b) {
-    return a % b;
+int clac(int a, int b) {
+    return (a % b);
 }
 
 float calc(float a, float b) {
@@ -22,16 +23,18 @@ float calc(float a, float b) {
 }
 
 int main() {
-    int num1, num2;
-    float fnum1, fnum2;
-    cin >> num1 >> num2 >> fnum1 >> fnum2;
+    int int1, int2;
+    float float1, float2;
 
-    cout << "Square of " << num1 << ": " << calc(num1) << endl;
-    cout << "Modulus of " << num1 << ", " << num2 << ": " << calc(num1, num2) << endl;
-    
-  
-    cout << "Quotient of " << fnum1 << ", " << fnum2 << ": " 
-         << fixed << setprecision(2) << calc(fnum1, fnum2) << endl;
+    cin >> int1 >> int2 >> float1 >> float2;
+
+    int squareResult = clac(int1);
+    int modulusResult = clac(int1, int2);
+    float quotientResult = calc(float1, float2);
+
+    cout << "Square of " << int1 << ": " << squareResult << endl;
+    cout << "Modulus of " << int1 << ", " << int2 << ": " << modulusResult << endl;
+    cout << "Quotient of " << float1 << ", " << float2 << ": " << fixed<<setprecision(2) << quotientResult << endl;
 
     return 0;
 }
